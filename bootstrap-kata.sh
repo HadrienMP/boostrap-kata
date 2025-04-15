@@ -82,8 +82,6 @@ parse_arguments() {
 
     kata=$(sanitize_kata "$kata")
 
-    echo "Chosen Sandbox: $sandbox"
-    echo "Sanitized Kata: $kata"
 
     local base_dir
     base_dir=$(generate_directory_name "$sandbox" "$kata")
