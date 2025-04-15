@@ -100,8 +100,6 @@ parse_arguments() {
 
     kata=$(sanitize_kata "$kata")
 
-    echo "Chosen Sandbox: $sandbox"
-    echo "Sanitized Kata: $kata"
 }
 
 main() {
