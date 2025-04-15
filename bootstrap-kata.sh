@@ -142,11 +142,10 @@ initialize_git() {
 
     echo "Git repository initialized successfully with an initial commit."
 }
+main() {
     local sandbox=""
     local kata=""
-    local sandbox=""
-    local kata=""
-    local final_dir sandbox
+    local final_dir
     read final_dir sandbox <<<"$(parse_arguments "$@")"
     check_dependencies
     create_and_enter_directory "$final_dir" "$sandbox"
