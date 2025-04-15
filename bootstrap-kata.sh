@@ -117,12 +117,7 @@ create_and_enter_directory() {
 
 run_tests() {
     pwd
-    if ! direnv allow; then
-        echo "Error: Failed to allow direnv." >&2
-        exit 1
-    fi
-
-    if ! mask test; then
+    if ! devbox run mask test; then
         echo "Error: Mask tests failed." >&2
         exit 1
     fi
