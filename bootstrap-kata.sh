@@ -10,9 +10,6 @@ check_dependencies() {
             exit 1
         fi
     done
-    create_and_enter_directory "$final_dir" "$sandbox"
-    echo "Successfully created and entered directory: $final_dir"
-    exit 0
 }
 
 list_sandboxes() {
@@ -123,6 +120,9 @@ main() {
     local final_dir
     final_dir=$(parse_arguments "$@")
     check_dependencies
+    create_and_enter_directory "$final_dir" "$sandbox"
+    echo "Successfully created and entered directory: $final_dir"
+    exit 0
 }
 
 main "$@"
