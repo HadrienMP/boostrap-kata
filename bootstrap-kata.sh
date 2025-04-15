@@ -72,6 +72,18 @@ parse_arguments() {
 
     list_sandboxes
 
+    if [[ -z "$sandbox" ]]; then
+        read -p "Enter sandbox: " sandbox
+    fi
+
+    if [[ -z "$kata" ]]; then
+        read -p "Enter kata: " kata
+    fi
+
+    kata=$(sanitize_kata "$kata")
+
+    echo "Chosen Sandbox: $sandbox"
+    echo "Sanitized Kata: $kata"
 
     local base_dir
     base_dir=$(generate_directory_name "$sandbox" "$kata")
