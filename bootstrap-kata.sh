@@ -107,4 +107,4 @@ main() {
     check_dependencies
 }
 
-main
+main "$@"
