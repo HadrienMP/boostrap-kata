@@ -3,6 +3,7 @@
 set -euo pipefail
 
 check_dependencies() {
+    echo "Checking dependencies..."
     local dependencies=("nix" "git" "direnv")
     for dep in "${dependencies[@]}"; do
         if ! command -v "$dep" &>/dev/null; then
@@ -13,6 +14,7 @@ check_dependencies() {
 }
 
 list_sandboxes() {
+    echo "Listing available sandboxes..."
     if ! output=$(nix flake show gitlab:pinage404/nix-sandboxes 2>/dev/null); then
         echo "Error: Failed to retrieve sandboxes." >&2
         exit 1
@@ -23,12 +25,14 @@ list_sandboxes() {
 }
 
 sanitize_kata() {
+    echo "Sanitizing kata name..."
     local kata="$1"
     # Convert to lowercase and remove illegal characters
     echo "$kata" | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g' | sed 's/[^a-z0-9._-]//g'
 }
 
 generate_directory_name() {
+    echo "Generating directory name..."
     local sandbox="$1"
     local kata="$2"
     local date
@@ -37,6 +41,7 @@ generate_directory_name() {
 }
 
 ensure_unique_directory() {
+    echo "Ensuring unique directory name..."
     local base_name="$1"
     local dir_name="$base_name"
     local counter=1
@@ -50,6 +55,7 @@ ensure_unique_directory() {
 }
 
 parse_arguments() {
+    echo "Parsing arguments..."
 
     while [[ $# -gt 0 ]]; do
         case $1 in
@@ -98,6 +104,7 @@ parse_arguments() {
 }
 
 create_and_enter_directory() {
+    echo "Creating and entering directory..."
     local dir_name="$1"
     local sandbox="$2"
 
@@ -114,6 +121,7 @@ create_and_enter_directory() {
 }
 
 run_tests() {
+    echo "Running tests..."
     pwd
     if ! devbox run mask test; then
         echo "Error: Mask tests failed." >&2
@@ -125,6 +133,7 @@ run_tests() {
 }
 
 initialize_git() {
+    echo "Initializing Git repository..."
     if ! git init; then
         echo "Error: Failed to initialize Git repository." >&2
         exit 1
@@ -150,7 +159,7 @@ main() {
     check_dependencies
     create_and_enter_directory "$final_dir" "$sandbox"
     run_tests
-    echo "Successfully set the stack up, all seems to be working correctly."
+    echo "Kata bootstrapped successfully!"
     exit 0
 }
 
