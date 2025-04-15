@@ -102,7 +102,6 @@ parse_arguments() {
 main() {
     local sandbox=""
     local kata=""
-    echo $@
     parse_arguments "$@"
     check_dependencies
 }
