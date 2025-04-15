@@ -10,8 +10,6 @@ check_dependencies() {
             exit 1
         fi
     done
-    list_sandboxes
-    exit 0
 }
 
 list_sandboxes() {
@@ -27,7 +25,7 @@ list_sandboxes() {
 sanitize_kata() {
     local kata="$1"
     # Convert to lowercase and remove illegal characters
-    echo "$kata" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9._-]//g'
+    echo "$kata" | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g' | sed 's/[^a-z0-9._-]//g'
 }
 
 parse_arguments() {
