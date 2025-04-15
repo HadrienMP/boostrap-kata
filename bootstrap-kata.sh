@@ -115,6 +115,20 @@ create_and_enter_directory() {
     fi
 }
 
+run_tests() {
+    if ! direnv allow; then
+        echo "Error: Failed to allow direnv." >&2
+        exit 1
+    fi
+
+    if ! mask test; then
+        echo "Error: Mask tests failed." >&2
+        exit 1
+    fi
+
+    echo "All tests passed successfully."
+}
+
 main() {
     local sandbox=""
     local kata=""
@@ -122,6 +136,7 @@ main() {
     read final_dir sandbox <<< "$(parse_arguments "$@")"
     check_dependencies
     create_and_enter_directory "$final_dir" "$sandbox"
+    run_tests
     echo "Successfully created and entered directory: $final_dir"
     exit 0
 }
