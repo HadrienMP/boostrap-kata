@@ -21,8 +21,7 @@ list_sandboxes() {
     fi
 
     echo "Available Sandboxes:"
-    echo $output
-    echo "$output" | grep -E '^[[:space:]]+\w+/' | sed 's/^[[:space:]]*//'
+    echo "$output" | awk '/templates/{flag=1;next}/^$/{flag=0}flag' | sed 's/^[[:space:]]*//'
 }
 
 main() {
