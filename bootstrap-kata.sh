@@ -120,12 +120,6 @@ create_and_enter_directory() {
     fi
 }
 
-run_tests() {
-    echo "Running tests..." >/dev/tty
-    pwd
-    echo "Skipping tests..." >/dev/tty
-    initialize_git
-}
 
 initialize_git() {
     echo "Initializing Git repository..." >/dev/tty
@@ -153,7 +147,7 @@ main() {
     read final_dir sandbox <<<"$(parse_arguments "$@")"
     check_dependencies
     create_and_enter_directory "$final_dir" "$sandbox"
-    run_tests
+    initialize_git
     echo "Kata bootstrapped successfully!" >/dev/tty
     exit 0
 }
