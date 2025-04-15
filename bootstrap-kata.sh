@@ -70,12 +70,16 @@ parse_arguments() {
         esac
     done
 
+    local available_sandboxes
+    available_sandboxes=$(nix flake show gitlab:pinage404/nix-sandboxes 2>/dev/null | awk '/templates/{flag=1;next}/^$/{flag=0}flag' | sed 's/^[[:space:]]*//')
+
     if [[ -z "$sandbox" ]]; then
-        list_sandboxes
+        echo "Available Sandboxes:"
+        echo "$available_sandboxes"
         read -p "Enter sandbox: " sandbox
     fi
 
-    if ! nix flake show gitlab:pinage404/nix-sandboxes 2>/dev/null | grep -q "$sandbox"; then
+    if ! echo "$available_sandboxes" | grep -q "$sandbox"; then
         echo "Error: Sandbox '$sandbox' does not exist." >&2
         exit 1
     fi
