@@ -3,7 +3,7 @@
 set -euo pipefail
 
 check_dependencies() {
-    echo "Checking dependencies..."
+    echo "Checking dependencies..." > /dev/tty
     local dependencies=("nix" "git" "direnv")
     for dep in "${dependencies[@]}"; do
         if ! command -v "$dep" &>/dev/null; then
@@ -14,7 +14,7 @@ check_dependencies() {
 }
 
 list_sandboxes() {
-    echo "Listing available sandboxes..."
+    echo "Listing available sandboxes..." > /dev/tty
     if ! output=$(nix flake show gitlab:pinage404/nix-sandboxes 2>/dev/null); then
         echo "Error: Failed to retrieve sandboxes." >&2
         exit 1
@@ -25,14 +25,14 @@ list_sandboxes() {
 }
 
 sanitize_kata() {
-    echo "Sanitizing kata name..."
+    echo "Sanitizing kata name..." > /dev/tty
     local kata="$1"
     # Convert to lowercase and remove illegal characters
     echo "$kata" | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g' | sed 's/[^a-z0-9._-]//g'
 }
 
 generate_directory_name() {
-    echo "Generating directory name..."
+    echo "Generating directory name..." > /dev/tty
     local sandbox="$1"
     local kata="$2"
     local date
@@ -41,7 +41,7 @@ generate_directory_name() {
 }
 
 ensure_unique_directory() {
-    echo "Ensuring unique directory name..."
+    echo "Ensuring unique directory name..." > /dev/tty
     local base_name="$1"
     local dir_name="$base_name"
     local counter=1
@@ -55,7 +55,7 @@ ensure_unique_directory() {
 }
 
 parse_arguments() {
-    echo "Parsing arguments..."
+    echo "Parsing arguments..." > /dev/tty
 
     while [[ $# -gt 0 ]]; do
         case $1 in
@@ -78,13 +78,13 @@ parse_arguments() {
     available_sandboxes=$(nix flake show gitlab:pinage404/nix-sandboxes 2>/dev/null | awk '/templates/{flag=1;next}/^$/{flag=0}flag' | sed 's/^[[:space:]]*//')
 
     if [[ -z "$sandbox" ]]; then
-        echo "Available Sandboxes:"
+        echo "Available Sandboxes:" > /dev/tty
         echo "$available_sandboxes"
         read -p "Enter sandbox: " sandbox
     fi
 
     if ! echo "$available_sandboxes" | grep -q "$sandbox"; then
-        echo "Error: Sandbox '$sandbox' does not exist." >&2
+        echo "Error: Sandbox '$sandbox' does not exist." >&2 > /dev/tty
         exit 1
     fi
 
@@ -104,11 +104,11 @@ parse_arguments() {
 }
 
 create_and_enter_directory() {
-    echo "Creating and entering directory..."
+    echo "Creating and entering directory..." > /dev/tty
     local dir_name="$1"
     local sandbox="$2"
 
-    echo "nix flake new --template \"gitlab:pinage404/nix-sandboxes#${sandbox}\" \"${dir_name}\""
+    echo "nix flake new --template \"gitlab:pinage404/nix-sandboxes#${sandbox}\" \"${dir_name}\"" > /dev/tty
     if ! nix flake new --template "gitlab:pinage404/nix-sandboxes#$sandbox" "$dir_name"; then
         echo "Error: Failed to create new flake in directory '$dir_name'." >&2
         exit 1
@@ -121,19 +121,19 @@ create_and_enter_directory() {
 }
 
 run_tests() {
-    echo "Running tests..."
+    echo "Running tests..." > /dev/tty
     pwd
     if ! devbox run mask test; then
         echo "Error: Mask tests failed." >&2
         exit 1
     fi
 
-    echo "All tests passed successfully."
+    echo "All tests passed successfully." > /dev/tty
     initialize_git
 }
 
 initialize_git() {
-    echo "Initializing Git repository..."
+    echo "Initializing Git repository..." > /dev/tty
     if ! git init; then
         echo "Error: Failed to initialize Git repository." >&2
         exit 1
@@ -149,7 +149,7 @@ initialize_git() {
         exit 1
     fi
 
-    echo "Git repository initialized successfully with an initial commit."
+    echo "Git repository initialized successfully with an initial commit." > /dev/tty
 }
 main() {
     local sandbox
@@ -159,7 +159,7 @@ main() {
     check_dependencies
     create_and_enter_directory "$final_dir" "$sandbox"
     run_tests
-    echo "Kata bootstrapped successfully!"
+    echo "Kata bootstrapped successfully!" > /dev/tty
     exit 0
 }
 
