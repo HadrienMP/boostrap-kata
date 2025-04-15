@@ -52,16 +52,7 @@ parse_arguments() {
     final_dir=$(ensure_unique_directory "$base_dir")
 
     echo "Final Directory Name: $final_dir"
-    exit 0
 }
-
-    local base_dir
-    base_dir=$(generate_directory_name "$sandbox" "$kata")
-    local final_dir
-    final_dir=$(ensure_unique_directory "$base_dir")
-
-    echo "Final Directory Name: $final_dir"
-    exit 0
 }
 
 list_sandboxes() {
