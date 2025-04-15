@@ -10,6 +10,13 @@ check_dependencies() {
             exit 1
         fi
     done
+    local base_dir
+    base_dir=$(generate_directory_name "$sandbox" "$kata")
+    local final_dir
+    final_dir=$(ensure_unique_directory "$base_dir")
+
+    echo "Final Directory Name: $final_dir"
+    exit 0
 }
 
 list_sandboxes() {
@@ -28,7 +35,26 @@ sanitize_kata() {
     echo "$kata" | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g' | sed 's/[^a-z0-9._-]//g'
 }
 
-parse_arguments() {
+generate_directory_name() {
+    local sandbox="$1"
+    local kata="$2"
+    local date
+    date=$(date +%Y-%m-%d)
+    echo "${sandbox}-${kata}-${date}"
+}
+
+ensure_unique_directory() {
+    local base_name="$1"
+    local dir_name="$base_name"
+    local counter=1
+
+    while [[ -d "$dir_name" ]]; do
+        dir_name="${base_name}-${counter}"
+        ((counter++))
+    done
+
+    echo "$dir_name"
+}
     local sandbox=""
     local kata=""
 
