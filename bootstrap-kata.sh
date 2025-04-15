@@ -108,7 +108,7 @@ create_and_enter_directory() {
     local dir_name="$1"
     local sandbox="$2"
 
-    echo "nix flake new --template "gitlab:pinage404/nix-sandboxes#$sandbox" "$dir_name""
+    echo "nix flake new --template \"gitlab:pinage404/nix-sandboxes#${sandbox}\" \"${dir_name}\""
     if ! nix flake new --template "gitlab:pinage404/nix-sandboxes#$sandbox" "$dir_name"; then
         echo "Error: Failed to create new flake in directory '$dir_name'." >&2
         exit 1
@@ -155,7 +155,7 @@ main() {
     local sandbox
     local kata
     local final_dir
-    read final_dir sandbox <<<"$(parse_arguments "$@")"
+    read final_dir sandbox <<< "$(parse_arguments "$@")"
     check_dependencies
     create_and_enter_directory "$final_dir" "$sandbox"
     run_tests
