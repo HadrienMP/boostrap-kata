@@ -55,7 +55,7 @@ ensure_unique_directory() {
 }
 
 parse_arguments() {
-    echo "Parsing arguments..."
+    # echo "Parsing arguments..."
 
     while [[ $# -gt 0 ]]; do
         case $1 in
@@ -94,6 +94,7 @@ parse_arguments() {
 
     kata=$(sanitize_kata "$kata")
 
+    echo "coucou"
     local base_dir
     base_dir=$(generate_directory_name "$sandbox" "$kata")
     local final_dir
@@ -155,7 +156,7 @@ main() {
     local sandbox
     local kata
     local final_dir
-    read final_dir sandbox <<<"$(parse_arguments "$@")"
+    read final_dir sandbox <<<$(parse_arguments "$@")
     check_dependencies
     create_and_enter_directory "$final_dir" "$sandbox"
     run_tests
