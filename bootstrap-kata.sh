@@ -116,6 +116,7 @@ create_and_enter_directory() {
 }
 
 run_tests() {
+    pwd
     if ! direnv allow; then
         echo "Error: Failed to allow direnv." >&2
         exit 1
@@ -133,7 +134,7 @@ main() {
     local sandbox=""
     local kata=""
     local final_dir sandbox
-    read final_dir sandbox <<< "$(parse_arguments "$@")"
+    read final_dir sandbox <<<"$(parse_arguments "$@")"
     check_dependencies
     create_and_enter_directory "$final_dir" "$sandbox"
     run_tests
