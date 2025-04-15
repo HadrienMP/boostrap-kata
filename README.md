@@ -1,4 +1,4 @@
-# Makata - The kata bootstraper
+# Bootstrap Kata
 
 This Bash script automates the process of bootstrapping a kata project from a sandbox repository hosted on GitLab. It helps developers quickly set up a new kata with the correct environment, dependencies, and Git setup.
 
