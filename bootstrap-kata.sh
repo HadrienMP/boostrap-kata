@@ -155,7 +155,7 @@ main() {
     local sandbox
     local kata
     local final_dir
-    read final_dir sandbox <<<"$(parse_arguments "$@")"
+    read final_dir sandbox <<< "$(parse_arguments "$@")"
     check_dependencies
     create_and_enter_directory "$final_dir" "$sandbox"
     run_tests
