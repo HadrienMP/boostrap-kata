@@ -123,9 +123,27 @@ run_tests() {
     fi
 
     echo "All tests passed successfully."
+    initialize_git
 }
 
-main() {
+initialize_git() {
+    if ! git init; then
+        echo "Error: Failed to initialize Git repository." >&2
+        exit 1
+    fi
+
+    if ! git add .; then
+        echo "Error: Failed to add files to Git." >&2
+        exit 1
+    fi
+
+    if ! git commit -m "Initial commit"; then
+        echo "Error: Failed to commit files to Git." >&2
+        exit 1
+    fi
+
+    echo "Git repository initialized successfully with an initial commit."
+}
     local sandbox=""
     local kata=""
     local final_dir sandbox
