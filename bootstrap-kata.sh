@@ -51,6 +51,8 @@ parse_arguments() {
         esac
     done
 
+    list_sandboxes
+
     if [[ -z "$sandbox" ]]; then
         read -p "Enter sandbox: " sandbox
     fi
