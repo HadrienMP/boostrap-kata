@@ -1,0 +1,153 @@
+{
+  "lockfile_version": "1",
+  "packages": {
+    "aider-chat@latest": {
+      "last_modified": "2025-04-12T07:19:22Z",
+      "resolved": "github:NixOS/nixpkgs/2349f9de17183971db12ae9e0123dab132023bd7#aider-chat",
+      "source": "devbox-search",
+      "version": "0.81.2",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/50bk7gpxnnmgglcb74dn8dfbjl8s7imy-python3.12-aider-chat-0.81.2",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/71ynpdinz9cdv5pbxj7n2yly4765d3h4-python3.12-aider-chat-0.81.2-dist"
+            }
+          ],
+          "store_path": "/nix/store/50bk7gpxnnmgglcb74dn8dfbjl8s7imy-python3.12-aider-chat-0.81.2"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/mq451ngxkml47m03wn2gml0x7s12q25g-python3.12-aider-chat-0.81.2",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/wwspxgnj1shv90ljaqdlzdhbhghs7gzj-python3.12-aider-chat-0.81.2-dist"
+            }
+          ],
+          "store_path": "/nix/store/mq451ngxkml47m03wn2gml0x7s12q25g-python3.12-aider-chat-0.81.2"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/zpbp659c2l1cnxpjjrnb1a0diswiabna-python3.12-aider-chat-0.81.2",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/bfysi919c8b7mm5ba8da08bzz62dg0xy-python3.12-aider-chat-0.81.2-dist"
+            }
+          ],
+          "store_path": "/nix/store/zpbp659c2l1cnxpjjrnb1a0diswiabna-python3.12-aider-chat-0.81.2"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/w8pahf80qm1b1qmnwry78rdkz3wqhim1-python3.12-aider-chat-0.81.2",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/ggwpg8xp8wjfq9h92mxxab00kkcqia0x-python3.12-aider-chat-0.81.2-dist"
+            }
+          ],
+          "store_path": "/nix/store/w8pahf80qm1b1qmnwry78rdkz3wqhim1-python3.12-aider-chat-0.81.2"
+        }
+      }
+    },
+    "just@latest": {
+      "last_modified": "2025-04-05T00:48:53Z",
+      "resolved": "github:NixOS/nixpkgs/250b695f41e0e2f5afbf15c6b12480de1fe0001b#just",
+      "source": "devbox-search",
+      "version": "1.40.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/wfm17v4bc2l8qd849wp0a9s7armdkm71-just-1.40.0",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/sv87amv0420lqr9hd4xg2hx9mp4lnajc-just-1.40.0-man",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/1gkfr98ad4z5p7hbm8afy2g2cha8461c-just-1.40.0-doc"
+            }
+          ],
+          "store_path": "/nix/store/wfm17v4bc2l8qd849wp0a9s7armdkm71-just-1.40.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/szq234z9fs95jmw9lgx9z7arp0kj2har-just-1.40.0",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/4y85j25ammy6n7bak476abyz9pmss4s2-just-1.40.0-man",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/4mmxx7gj51w8yl3vk6bwif6b97l1ywps-just-1.40.0-doc"
+            }
+          ],
+          "store_path": "/nix/store/szq234z9fs95jmw9lgx9z7arp0kj2har-just-1.40.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/9224477pfqcwljayr91d8xjp7bg72wdb-just-1.40.0",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/krhp0yy3i73v5wabhj69mcrh863s1xrh-just-1.40.0-man",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/dl41yapm6jl5fx1pzk6zx1c461hvf6sx-just-1.40.0-doc"
+            }
+          ],
+          "store_path": "/nix/store/9224477pfqcwljayr91d8xjp7bg72wdb-just-1.40.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/h66bwgjajc4l7rasrk4pmsijaidk3pb8-just-1.40.0",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/mz1lccsaxnxhdlzdm8y6l4vwxb78v5fc-just-1.40.0-man",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/mh4x9xcb1zhs09qjn38bgbgf0jjkyn0z-just-1.40.0-doc"
+            }
+          ],
+          "store_path": "/nix/store/h66bwgjajc4l7rasrk4pmsijaidk3pb8-just-1.40.0"
+        }
+      }
+    }
+  }
+}
