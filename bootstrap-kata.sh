@@ -53,9 +53,6 @@ parse_arguments() {
 
     echo "Final Directory Name: $final_dir"
 }
-}
-
-list_sandboxes() {
     if ! output=$(nix flake show gitlab:pinage404/nix-sandboxes 2>/dev/null); then
         echo "Error: Failed to retrieve sandboxes." >&2
         exit 1
