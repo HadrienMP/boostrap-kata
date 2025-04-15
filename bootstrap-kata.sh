@@ -74,9 +74,10 @@ parse_arguments() {
         esac
     done
 
+    local available_sandboxes
+    available_sandboxes=$(nix flake show gitlab:pinage404/nix-sandboxes 2>/dev/null | awk '/templates/{flag=1;next}/^$/{flag=0}flag' | sed 's/^[[:space:]]*//')
+
     if [[ -z "$sandbox" ]]; then
-        local available_sandboxes
-        available_sandboxes=$(nix flake show gitlab:pinage404/nix-sandboxes 2>/dev/null | awk '/templates/{flag=1;next}/^$/{flag=0}flag' | sed 's/^[[:space:]]*//')
 
         echo "Available Sandboxes:" >/dev/tty
         echo "$available_sandboxes" >/dev/tty
@@ -119,7 +120,6 @@ create_and_enter_directory() {
         exit 1
     fi
 }
-
 
 initialize_git() {
     echo "Initializing Git repository..." >/dev/tty
