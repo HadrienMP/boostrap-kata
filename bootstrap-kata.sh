@@ -13,6 +13,40 @@ check_dependencies() {
 }
 
 parse_arguments() {
+    local sandbox=""
+    local kata=""
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --sandbox)
+                sandbox="$2"
+                shift 2
+                ;;
+            --kata)
+                kata="$2"
+                shift 2
+                ;;
+            *)
+                echo "Unknown option: $1" >&2
+                exit 1
+                ;;
+        esac
+    done
+
+    list_sandboxes
+
+    if [[ -z "$sandbox" ]]; then
+        read -p "Enter sandbox: " sandbox
+    fi
+
+    if [[ -z "$kata" ]]; then
+        read -p "Enter kata: " kata
+    fi
+
+    kata=$(sanitize_kata "$kata")
+
+    echo "Chosen Sandbox: $sandbox"
+    echo "Sanitized Kata: $kata"
 
     local base_dir
     base_dir=$(generate_directory_name "$sandbox" "$kata")
