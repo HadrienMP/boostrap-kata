@@ -55,18 +55,18 @@ parse_arguments() {
 
     while [[ $# -gt 0 ]]; do
         case $1 in
-            --sandbox)
-                sandbox="$2"
-                shift 2
-                ;;
-            --kata)
-                kata="$2"
-                shift 2
-                ;;
-            *)
-                echo "Unknown option: $1" >&2
-                exit 1
-                ;;
+        --sandbox)
+            sandbox="$2"
+            shift 2
+            ;;
+        --kata)
+            kata="$2"
+            shift 2
+            ;;
+        *)
+            echo "Unknown option: $1" >&2
+            exit 1
+            ;;
         esac
     done
 
@@ -102,6 +102,7 @@ parse_arguments() {
 main() {
     local sandbox=""
     local kata=""
+    echo $@
     parse_arguments "$@"
     check_dependencies
 }
