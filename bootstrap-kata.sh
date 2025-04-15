@@ -70,10 +70,14 @@ parse_arguments() {
         esac
     done
 
-    list_sandboxes
-
     if [[ -z "$sandbox" ]]; then
+        list_sandboxes
         read -p "Enter sandbox: " sandbox
+    else
+        if ! nix flake show gitlab:pinage404/nix-sandboxes 2>/dev/null | grep -q "$sandbox"; then
+            echo "Error: Sandbox '$sandbox' does not exist." >&2
+            exit 1
+        fi
     fi
 
     if [[ -z "$kata" ]]; then
@@ -81,7 +85,6 @@ parse_arguments() {
     fi
 
     kata=$(sanitize_kata "$kata")
-
 
     local base_dir
     base_dir=$(generate_directory_name "$sandbox" "$kata")
@@ -89,16 +92,6 @@ parse_arguments() {
     final_dir=$(ensure_unique_directory "$base_dir")
 
     echo "Final Directory Name: $final_dir"
-
-    if [[ -z "$sandbox" ]]; then
-        read -p "Enter sandbox: " sandbox
-    fi
-
-    if [[ -z "$kata" ]]; then
-        read -p "Enter kata: " kata
-    fi
-
-    kata=$(sanitize_kata "$kata")
 
 }
 
