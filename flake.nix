@@ -36,9 +36,17 @@
           pkgs.stdenv.mkDerivation {
             name = "bootstrap-kata";
             src = self;
+            dontBuild = true;
             installPhase = "mkdir -p $out/bin; mv ./bootstrap-kata.sh $out/bin/bootstrap-kata";
           };
         defaultPackage = self.packages.${system}.bootstrap-kata;
+        
+        apps.bootstrap-kata = {
+          type = "app";
+          program = "${self.packages.${system}.bootstrap-kata}/bin/bootstrap-kata";
+        };
+
+        defaultApp = self.apps.${system}.bootstrap-kata;
       }
     );
 }
