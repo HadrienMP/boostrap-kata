@@ -133,7 +133,7 @@ main() {
     check_dependencies
     create_and_enter_directory "$final_dir" "$sandbox"
     run_tests
-    echo "Successfully created and entered directory: $final_dir"
+    echo "Successfully set the stack up, all seems to be working correctly."
     exit 0
 }
 
