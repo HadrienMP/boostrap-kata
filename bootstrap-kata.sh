@@ -95,7 +95,7 @@ parse_arguments() {
     local final_dir
     final_dir=$(ensure_unique_directory "$base_dir")
 
-    echo "$final_dir"
+    echo "$final_dir $sandbox"
 
 }
 
@@ -118,8 +118,8 @@ create_and_enter_directory() {
 main() {
     local sandbox=""
     local kata=""
-    local final_dir
-    final_dir=$(parse_arguments "$@")
+    local final_dir sandbox
+    read final_dir sandbox <<< "$(parse_arguments "$@")"
     check_dependencies
     create_and_enter_directory "$final_dir" "$sandbox"
     echo "Successfully created and entered directory: $final_dir"
