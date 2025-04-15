@@ -12,6 +12,43 @@ check_dependencies() {
     done
 }
 
+list_sandboxes() {
+    if ! output=$(nix flake show gitlab:pinage404/nix-sandboxes 2>/dev/null); then
+        echo "Error: Failed to retrieve sandboxes." >&2
+        exit 1
+    fi
+
+    echo "Available Sandboxes:"
+    echo "$output" | awk '/templates/{flag=1;next}/^$/{flag=0}flag' | sed 's/^[[:space:]]*//'
+}
+
+sanitize_kata() {
+    local kata="$1"
+    # Convert to lowercase and remove illegal characters
+    echo "$kata" | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g' | sed 's/[^a-z0-9._-]//g'
+}
+
+generate_directory_name() {
+    local sandbox="$1"
+    local kata="$2"
+    local date
+    date=$(date +%Y-%m-%d)
+    echo "${sandbox}-${kata}-${date}"
+}
+
+ensure_unique_directory() {
+    local base_name="$1"
+    local dir_name="$base_name"
+    local counter=1
+
+    while [[ -d "$dir_name" ]]; do
+        dir_name="${base_name}-${counter}"
+        ((counter++))
+    done
+
+    echo "$dir_name"
+}
+
 parse_arguments() {
     local sandbox=""
     local kata=""
@@ -54,7 +91,6 @@ parse_arguments() {
     final_dir=$(ensure_unique_directory "$base_dir")
 
     echo "Final Directory Name: $final_dir"
-list_sandboxes() {
     if ! output=$(nix flake show gitlab:pinage404/nix-sandboxes 2>/dev/null); then
         echo "Error: Failed to retrieve sandboxes." >&2
         exit 1
