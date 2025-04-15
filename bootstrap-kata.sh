@@ -10,6 +10,18 @@ check_dependencies() {
             exit 1
         fi
     done
+    list_sandboxes
+    exit 0
+}
+
+list_sandboxes() {
+    if ! output=$(nix flake show gitlab:pinage404/nix-sandboxes 2>/dev/null); then
+        echo "Error: Failed to retrieve sandboxes." >&2
+        exit 1
+    fi
+
+    echo "Available Sandboxes:"
+    echo "$output" | grep -E '^[[:space:]]+\w+/' | sed 's/^[[:space:]]*//'
 }
 
 main() {
