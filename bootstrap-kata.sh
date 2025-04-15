@@ -73,11 +73,11 @@ parse_arguments() {
     if [[ -z "$sandbox" ]]; then
         list_sandboxes
         read -p "Enter sandbox: " sandbox
-    else
-        if ! nix flake show gitlab:pinage404/nix-sandboxes 2>/dev/null | grep -q "$sandbox"; then
-            echo "Error: Sandbox '$sandbox' does not exist." >&2
-            exit 1
-        fi
+    fi
+
+    if ! nix flake show gitlab:pinage404/nix-sandboxes 2>/dev/null | grep -q "$sandbox"; then
+        echo "Error: Sandbox '$sandbox' does not exist." >&2
+        exit 1
     fi
 
     if [[ -z "$kata" ]]; then
