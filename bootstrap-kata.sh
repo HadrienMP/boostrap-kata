@@ -50,8 +50,6 @@ ensure_unique_directory() {
 }
 
 parse_arguments() {
-    local sandbox=""
-    local kata=""
 
     while [[ $# -gt 0 ]]; do
         case $1 in
@@ -144,6 +142,8 @@ initialize_git() {
 
     echo "Git repository initialized successfully with an initial commit."
 }
+    local sandbox=""
+    local kata=""
     local sandbox=""
     local kata=""
     local final_dir sandbox
