@@ -53,15 +53,6 @@ parse_arguments() {
     local sandbox=""
     local kata=""
 
-
-    local base_dir
-    base_dir=$(generate_directory_name "$sandbox" "$kata")
-    local final_dir
-    final_dir=$(ensure_unique_directory "$base_dir")
-
-    echo "Final Directory Name: $final_dir"
-}
-
     while [[ $# -gt 0 ]]; do
         case $1 in
             --sandbox)
@@ -80,6 +71,14 @@ parse_arguments() {
     done
 
     list_sandboxes
+
+
+    local base_dir
+    base_dir=$(generate_directory_name "$sandbox" "$kata")
+    local final_dir
+    final_dir=$(ensure_unique_directory "$base_dir")
+
+    echo "Final Directory Name: $final_dir"
 
     if [[ -z "$sandbox" ]]; then
         read -p "Enter sandbox: " sandbox
