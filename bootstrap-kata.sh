@@ -10,41 +10,9 @@ check_dependencies() {
             exit 1
         fi
     done
+}
+
 parse_arguments() {
-    local sandbox=""
-    local kata=""
-
-    while [[ $# -gt 0 ]]; do
-        case $1 in
-            --sandbox)
-                sandbox="$2"
-                shift 2
-                ;;
-            --kata)
-                kata="$2"
-                shift 2
-                ;;
-            *)
-                echo "Unknown option: $1" >&2
-                exit 1
-                ;;
-        esac
-    done
-
-    list_sandboxes
-
-    if [[ -z "$sandbox" ]]; then
-        read -p "Enter sandbox: " sandbox
-    fi
-
-    if [[ -z "$kata" ]]; then
-        read -p "Enter kata: " kata
-    fi
-
-    kata=$(sanitize_kata "$kata")
-
-    echo "Chosen Sandbox: $sandbox"
-    echo "Sanitized Kata: $kata"
 
     local base_dir
     base_dir=$(generate_directory_name "$sandbox" "$kata")
@@ -52,7 +20,7 @@ parse_arguments() {
     final_dir=$(ensure_unique_directory "$base_dir")
 
     echo "Final Directory Name: $final_dir"
-}
+list_sandboxes() {
     if ! output=$(nix flake show gitlab:pinage404/nix-sandboxes 2>/dev/null); then
         echo "Error: Failed to retrieve sandboxes." >&2
         exit 1
