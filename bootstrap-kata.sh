@@ -53,13 +53,13 @@ parse_arguments() {
 
     while [[ $# -gt 0 ]]; do
         case $1 in
-        --sandbox)
-            sandbox="$2"
-            shift 2
+        --sandbox=*)
+            sandbox="${1#*=}"
+            shift
             ;;
-        --kata)
-            kata="$2"
-            shift 2
+        --kata=*)
+            kata="${1#*=}"
+            shift
             ;;
         *)
             echo "Unknown option: $1" >&2
