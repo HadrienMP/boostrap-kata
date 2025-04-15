@@ -57,6 +57,9 @@ ensure_unique_directory() {
 parse_arguments() {
     echo "Parsing arguments..." >/dev/tty
 
+    local sandbox=""
+    local kata=""
+
     while [[ $# -gt 0 ]]; do
         case $1 in
         --sandbox=*)
