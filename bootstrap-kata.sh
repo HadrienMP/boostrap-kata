@@ -10,6 +10,7 @@ check_dependencies() {
             exit 1
         fi
     done
+parse_arguments() {
     local sandbox=""
     local kata=""
 
@@ -44,6 +45,15 @@ check_dependencies() {
 
     echo "Chosen Sandbox: $sandbox"
     echo "Sanitized Kata: $kata"
+
+    local base_dir
+    base_dir=$(generate_directory_name "$sandbox" "$kata")
+    local final_dir
+    final_dir=$(ensure_unique_directory "$base_dir")
+
+    echo "Final Directory Name: $final_dir"
+    exit 0
+}
 
     local base_dir
     base_dir=$(generate_directory_name "$sandbox" "$kata")
