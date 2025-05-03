@@ -1,70 +1,6 @@
 {
   "lockfile_version": "1",
   "packages": {
-    "aider-chat@latest": {
-      "last_modified": "2025-04-12T07:19:22Z",
-      "resolved": "github:NixOS/nixpkgs/2349f9de17183971db12ae9e0123dab132023bd7#aider-chat",
-      "source": "devbox-search",
-      "version": "0.81.2",
-      "systems": {
-        "aarch64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/50bk7gpxnnmgglcb74dn8dfbjl8s7imy-python3.12-aider-chat-0.81.2",
-              "default": true
-            },
-            {
-              "name": "dist",
-              "path": "/nix/store/71ynpdinz9cdv5pbxj7n2yly4765d3h4-python3.12-aider-chat-0.81.2-dist"
-            }
-          ],
-          "store_path": "/nix/store/50bk7gpxnnmgglcb74dn8dfbjl8s7imy-python3.12-aider-chat-0.81.2"
-        },
-        "aarch64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/mq451ngxkml47m03wn2gml0x7s12q25g-python3.12-aider-chat-0.81.2",
-              "default": true
-            },
-            {
-              "name": "dist",
-              "path": "/nix/store/wwspxgnj1shv90ljaqdlzdhbhghs7gzj-python3.12-aider-chat-0.81.2-dist"
-            }
-          ],
-          "store_path": "/nix/store/mq451ngxkml47m03wn2gml0x7s12q25g-python3.12-aider-chat-0.81.2"
-        },
-        "x86_64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/zpbp659c2l1cnxpjjrnb1a0diswiabna-python3.12-aider-chat-0.81.2",
-              "default": true
-            },
-            {
-              "name": "dist",
-              "path": "/nix/store/bfysi919c8b7mm5ba8da08bzz62dg0xy-python3.12-aider-chat-0.81.2-dist"
-            }
-          ],
-          "store_path": "/nix/store/zpbp659c2l1cnxpjjrnb1a0diswiabna-python3.12-aider-chat-0.81.2"
-        },
-        "x86_64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/w8pahf80qm1b1qmnwry78rdkz3wqhim1-python3.12-aider-chat-0.81.2",
-              "default": true
-            },
-            {
-              "name": "dist",
-              "path": "/nix/store/ggwpg8xp8wjfq9h92mxxab00kkcqia0x-python3.12-aider-chat-0.81.2-dist"
-            }
-          ],
-          "store_path": "/nix/store/w8pahf80qm1b1qmnwry78rdkz3wqhim1-python3.12-aider-chat-0.81.2"
-        }
-      }
-    },
     "just@latest": {
       "last_modified": "2025-04-05T00:48:53Z",
       "resolved": "github:NixOS/nixpkgs/250b695f41e0e2f5afbf15c6b12480de1fe0001b#just",
@@ -146,6 +82,54 @@
             }
           ],
           "store_path": "/nix/store/h66bwgjajc4l7rasrk4pmsijaidk3pb8-just-1.40.0"
+        }
+      }
+    },
+    "shunit2@latest": {
+      "last_modified": "2025-03-23T05:31:05Z",
+      "resolved": "github:NixOS/nixpkgs/dd613136ee91f67e5dba3f3f41ac99ae89c5406b#shunit2",
+      "source": "devbox-search",
+      "version": "2.1.8",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/lj23419s4ppa9yk3cp2zl04i1q2v4pcl-shunit2-2.1.8",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/lj23419s4ppa9yk3cp2zl04i1q2v4pcl-shunit2-2.1.8"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/5pkh5p0snwlpwg1k5d7539zlv4xjhr3b-shunit2-2.1.8",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/5pkh5p0snwlpwg1k5d7539zlv4xjhr3b-shunit2-2.1.8"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/3jji7f5qgczb5l9ppw3nkmq4pqzmsnjx-shunit2-2.1.8",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/3jji7f5qgczb5l9ppw3nkmq4pqzmsnjx-shunit2-2.1.8"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/0b9kjvk69465lqkkh94yiscq2gk2mphk-shunit2-2.1.8",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/0b9kjvk69465lqkkh94yiscq2gk2mphk-shunit2-2.1.8"
         }
       }
     }
