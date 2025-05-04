@@ -1,0 +1,126 @@
+#!/usr/bin/env sh
+set -euo pipefail
+
+TEST_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+. $TEST_DIR/../src/pure.sh
+
+# -------------------------------
+# Parse the arguments
+# -------------------------------
+
+test_long_form_arguments() {
+	actual=$(parse_args \
+		--kata=fizzbuzz \
+		--template=clojure \
+		2>&1)
+
+	assertEquals \
+		"success;clojure;fizzbuzz" \
+		"$actual"
+}
+test_short_form_arguments() {
+	actual=$(parse_args \
+		-k=fizzbuzz \
+		-t=clojure \
+		2>&1)
+
+	assertEquals \
+		"success;clojure;fizzbuzz" \
+		"$actual"
+}
+test_the_kata_is_normalized() {
+	actual=$(parse_args \
+		--kata="maRs Rover" \
+		--template=clojure \
+		2>&1)
+
+	assertEquals \
+		"success;clojure;mars-rover" \
+		"$actual"
+}
+test_fails_and_displays_the_usage_when_the_kata_is_not_only_letters_and_spaces() {
+	actual=$(parse_args \
+		--kata="maRs R2over" \
+		--template=clojure \
+		2>&1)
+
+	assertEquals \
+		"failure;The kata name can only contain letters and spaces;$(show_help)" \
+		"$actual"
+}
+test_missing_arguments() {
+	actual=$(parse_args 2>&1)
+
+	assertEquals "success;;" "$actual"
+}
+test_usage() {
+	actual=$(parse_args --help 2>&1)
+
+	assertEquals \
+		"usage;$(show_help)" \
+		"$actual"
+}
+
+# -------------------------------
+# Parse the templates
+# -------------------------------
+NIX_FLAKE_SHOW=$(
+	cat <<'EOF'
+{
+  "templates": {
+    "c": {
+      "description": "C with formatting and test",
+      "type": "template"
+    },
+    "clojure": {
+      "description": "Clojure with formatting, linting and test",
+      "type": "template"
+    }
+  }
+}
+EOF
+)
+PARSED_TEMPLATES="c;C with formatting and test
+clojure;Clojure with formatting, linting and test"
+
+test_parse_templates() {
+	actual=$(parse_templates "$NIX_FLAKE_SHOW")
+	assertEquals "$PARSED_TEMPLATES"
+	"$actual"
+}
+
+# -------------------------------
+# Print the templates
+# -------------------------------
+test_parse_templates() {
+	actual=$(print_templates "$PARSED_TEMPLATES")
+	assertEquals \
+		"[1] C with formatting and test
+[2] Clojure with formatting, linting and test" \
+		"$actual"
+}
+
+# -------------------------------
+# Get the template for its number
+# -------------------------------
+test_get_template() {
+	actual=$(get_template 2 "$PARSED_TEMPLATES")
+	assertEquals "clojure" "$actual"
+}
+
+# -------------------------------
+# Make the commands
+# -------------------------------
+test_make_the_commands() {
+	actual=$(make_the_commands clojure fizzbuzz 2024-12-31)
+	assertEquals \
+		"nix flake new --template \"gitlab:pinage404/nix-sandboxes#clojure\" clojure-fizzbuzz-2024-12-31
+cd clojure-fizzbuzz-2024-12-31
+git init
+git add --all
+git commit -m \"chore: init\"" \
+		"$actual"
+}
+
+. shunit2

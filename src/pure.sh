@@ -1,0 +1,98 @@
+#!/usr/bin/env sh
+
+set -euo pipefail
+
+parse_args() {
+	local kata=""
+	local template=""
+	for i in "$@"; do
+		case $1 in
+		-k=* | --kata=*)
+			kata="$(normalize_kata "${1#*=}")"
+			validate_kata $kata
+			shift
+			;;
+		-t=* | --template=*)
+			template="${1#*=}"
+			shift
+			;;
+		-h | --help)
+			echo "usage;$(show_help)"
+			exit
+			;;
+		esac
+	done
+
+	echo "success;$template;$kata"
+}
+
+normalize_kata() {
+	kata=$1
+	kata=${kata// /-} # Replace spaces by dashes
+	kata=${kata,,} # To lower case
+	echo $kata
+}
+
+validate_kata() {
+	if [[ ! "$1" =~ ^[a-z\-]+$ ]]; then
+		echo "failure;The kata name can only contain letters and spaces;$(show_help)"
+		exit
+	fi
+}
+
+show_help() {
+	echo "bootstrap-kata 
+	A command line tool to make it fast and easy to bootstrap your next kata.
+	It uses the beautifully crafted sandboxes at https://gitlab.com/pinage404/nix-sandboxes.
+	They come equiped with all the tools and examples you need to start coding right away without any hustle
+	It will create a folder with the name of the template, the kata name and the date. 
+	It will then init a git repository and make a first commit.
+
+Usage: bootstrap-kata [options]
+	options:
+		-k, --kata=\"the kata name\"     the name of the kata (can only contain letters)
+		-t, --template=template          the name of the nix-sandboxes template you are choosing
+		-h, --help                       to prompt this message
+
+Examples:
+	bootstrap-kata # will list the available templates and ask you to choose
+	bootstrap-kata --template=clojure # selects the clojure template and ask for the kata name
+	bootstrap-kata --template=clojure --kata=\"mars rover\""
+}
+
+parse_templates() {
+	echo $1 | jq --raw-output ".templates | to_entries[] | \"\(.key);\(.value.description)\""
+}
+
+print_templates() {
+	local number=1
+	echo "$1" | while read line; do
+		description=$(echo "$line" | get 2 )
+		echo "[$number] $description"
+		number=$(expr $number + 1)
+	done
+}
+
+get_template() {
+	local number=$1
+	local parsed=$2
+	echo "$parsed" | sed "${number}q;d" | get 1
+}
+
+make_the_commands() {
+	template=$1
+	kata=$2
+	today=$3
+	folder="$template-$kata-$today"
+
+echo "nix flake new --template \"gitlab:pinage404/nix-sandboxes#$template\" $folder
+cd $folder
+git init
+git add --all
+git commit -m \"chore: init\"" \
+
+}
+
+get() {
+	 cut -d ';' -f $1
+}
