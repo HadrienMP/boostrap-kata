@@ -15,10 +15,9 @@ echo "
 "
 
 parse_result=$(parse_args "$@")
-success=$(echo "$parse_result" | get 1)
 template=""
 kata=""
-case "$success" in
+case "$$(echo "$parse_result" | get 1)" in
 success)
 	template=$(echo "$parse_result" | get 2)
 	kata=$(echo "$parse_result" | get 3)
@@ -64,15 +63,9 @@ if [ -z "$kata" ]; then
 	esac
 fi
 
-commands=$(make_the_commands "$template" "$kata" "$(date +'%Y-%m-%d')")
-echo "I will execute the following commands"
-echo "$commands"
-read -rp "Is this OK ? [Y,n] " go
-case "$go" in
-y | Y)
-	eval "$commands"
-	;;
-*)
-	exit
-	;;
-esac
+today=$(date +'%Y-%m-%d')
+commands=$(make_the_commands "$template" "$kata" "$today")
+eval "$commands"
+
+echo -e "\n✅ All done, you can now do 'cd $template-$kata-$today'"
+echo "✨ Happy coding!"

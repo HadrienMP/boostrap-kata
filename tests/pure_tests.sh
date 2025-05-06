@@ -120,11 +120,14 @@ test_get_template() {
 test_make_the_commands() {
 	actual=$(make_the_commands clojure fizzbuzz 2024-12-31)
 	assertEquals \
-		"nix flake new --template \"gitlab:pinage404/nix-sandboxes#clojure\" clojure-fizzbuzz-2024-12-31
+		"
+set -x
+nix flake new --template \"gitlab:pinage404/nix-sandboxes#clojure\" clojure-fizzbuzz-2024-12-31
 cd clojure-fizzbuzz-2024-12-31
 git init
 git add --all
-git commit -m \"chore: init\"" \
+git commit -m \"chore: init\"
+set +x" \
 		"$actual"
 }
 

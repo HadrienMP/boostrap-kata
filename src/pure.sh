@@ -65,14 +65,7 @@ parse_templates() {
 }
 
 BWhite='\033[1;37m' # White Bold
-Red='\033[0;31m'    # Red
-Green='\033[0;32m'  # Green
-Yellow='\033[0;33m' # Yellow
 Blue='\033[0;34m'   # Blue
-Purple='\033[0;35m' # Purple
-Cyan='\033[0;36m'   # Cyan
-White='\033[0;37m'  # White
-Purple='\033[0;35m' # Purple
 Color_Off='\033[0m' # Text Reset
 print_templates() {
 	local number=1
@@ -96,11 +89,15 @@ make_the_commands() {
 	today=$3
 	folder="$template-$kata-$today"
 
-	echo "nix flake new --template \"gitlab:pinage404/nix-sandboxes#$template\" $folder
+	echo "
+set -x
+nix flake new --template \"gitlab:pinage404/nix-sandboxes#$template\" $folder
 cd $folder
 git init
 git add --all
-git commit -m \"chore: init\""
+git commit -m \"chore: init\"
+set +x
+"
 
 }
 
