@@ -1,15 +1,15 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 set -euo pipefail
 
 parse_args() {
 	local kata=""
 	local template=""
-	for i in "$@"; do
+	for _ in "$@"; do
 		case $1 in
 		-k=* | --kata=*)
 			kata="$(normalize_kata "${1#*=}")"
-			validate_kata $kata
+			validate_kata "$kata"
 			shift
 			;;
 		-t=* | --template=*)
@@ -29,8 +29,8 @@ parse_args() {
 normalize_kata() {
 	kata=$1
 	kata=${kata// /-} # Replace spaces by dashes
-	kata=${kata,,} # To lower case
-	echo $kata
+	kata=${kata,,}    # To lower case
+	echo "$kata"
 }
 
 validate_kata() {
@@ -61,15 +61,15 @@ Examples:
 }
 
 parse_templates() {
-	echo $1 | jq --raw-output ".templates | to_entries[] | \"\(.key);\(.value.description)\""
+	echo "$1" | jq --raw-output ".templates | to_entries[] | \"\(.key);\(.value.description)\""
 }
 
 print_templates() {
 	local number=1
-	echo "$1" | while read line; do
-		description=$(echo "$line" | get 2 )
+	echo "$1" | while read -r line; do
+		description=$(echo "$line" | get 2)
 		echo "[$number] $description"
-		number=$(expr $number + 1)
+		number=$((number + 1))
 	done
 }
 
@@ -85,14 +85,14 @@ make_the_commands() {
 	today=$3
 	folder="$template-$kata-$today"
 
-echo "nix flake new --template \"gitlab:pinage404/nix-sandboxes#$template\" $folder
+	echo "nix flake new --template \"gitlab:pinage404/nix-sandboxes#$template\" $folder
 cd $folder
 git init
 git add --all
-git commit -m \"chore: init\"" \
+git commit -m \"chore: init\""
 
 }
 
 get() {
-	 cut -d ';' -f $1
+	cut -d ';' -f "$1"
 }

@@ -33,8 +33,16 @@ kcov \
 ## lint
 
 ```sh
-shellcheck --format=diff ./**/**.sh | git apply --allow-empty
+shopt -s nullglob dotglob
+shellcheck -x ./**/**.{sh,bash,ksh,bashrc,bash_profile,bash_login,bash_logout}
 ```
+
+### lint watch
+
+```sh
+watchexec -d 1 --clear -- $MASK lint
+```
+
 
 ## format
 

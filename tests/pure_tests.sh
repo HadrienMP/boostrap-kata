@@ -1,9 +1,14 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+# shellcheck disable=2317
+
 set -euo pipefail
 
-TEST_DIR="$(cd "$(dirname "$0")" && pwd)"
+DIR="${BASH_SOURCE%/*}"
+if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
+ROOT_DIR="$(dirname "$DIR")"
+SRC_DIR="${ROOT_DIR}/src/"
 
-. $TEST_DIR/../src/pure.sh
+. "$SRC_DIR"/pure.sh
 
 # -------------------------------
 # Parse the arguments
@@ -123,4 +128,5 @@ git commit -m \"chore: init\"" \
 		"$actual"
 }
 
+# shellcheck disable=1091
 . shunit2
