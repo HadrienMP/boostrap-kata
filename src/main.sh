@@ -3,6 +3,16 @@
 DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
 . "$DIR"/pure.sh
+. "$DIR"/style.sh
+. "$DIR"/loader.sh
+
+echo "
+
+░▒█▀▀▄░▄▀▀▄░▄▀▀▄░█▀▀░▀█▀░█▀▀▄░█▀▀▄░▄▀▀▄░░░▒█░▄▀░█▀▀▄░▀█▀░█▀▀▄
+░▒█▀▀▄░█░░█░█░░█░▀▀▄░░█░░█▄▄▀░█▄▄█░█▄▄█░░░▒█▀▄░░█▄▄█░░█░░█▄▄█
+░▒█▄▄█░░▀▀░░░▀▀░░▀▀▀░░▀░░▀░▀▀░▀░░▀░█░░░░░░▒█░▒█░▀░░▀░░▀░░▀░░▀ 
+
+"
 
 parse_result=$(parse_args "$@")
 success=$(echo "$parse_result" | get 1)
@@ -28,12 +38,16 @@ esac
 # Get the template
 # -----------------------------
 if [ -z "$template" ]; then
-	echo "Getting the list of sanddboxes"
+	shloader -l emoji_hour -m "Getting the list of sandboxes" -e "✅"
 	nix_flake_show=$(nix flake show gitlab:pinage404/nix-sandboxes --json 2>/dev/null)
+	end_shloader
+	echo ""
 	templates=$(parse_templates "$nix_flake_show")
 	print_templates "$templates"
+	echo ""
 	read -rp "Choose a sandbox [1,2...] " template_number
 	template=$(get_template "$template_number" "$templates")
+	echo -e "✅ Using $template"
 fi
 
 # -----------------------------

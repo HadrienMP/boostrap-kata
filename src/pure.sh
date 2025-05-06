@@ -64,11 +64,22 @@ parse_templates() {
 	echo "$1" | jq --raw-output ".templates | to_entries[] | \"\(.key);\(.value.description)\""
 }
 
+BWhite='\033[1;37m' # White Bold
+Red='\033[0;31m'    # Red
+Green='\033[0;32m'  # Green
+Yellow='\033[0;33m' # Yellow
+Blue='\033[0;34m'   # Blue
+Purple='\033[0;35m' # Purple
+Cyan='\033[0;36m'   # Cyan
+White='\033[0;37m'  # White
+Purple='\033[0;35m' # Purple
+Color_Off='\033[0m' # Text Reset
 print_templates() {
 	local number=1
 	echo "$1" | while read -r line; do
+		template=$(echo "$line" | get 1)
 		description=$(echo "$line" | get 2)
-		echo "[$number] $description"
+		echo -e "${BWhite}[$number]${Color_Off} ${Blue}$template${Color_Off} - $description"
 		number=$((number + 1))
 	done
 }
