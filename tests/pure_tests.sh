@@ -101,8 +101,8 @@ test_parse_templates() {
 test_parse_templates() {
 	actual=$(print_templates "$PARSED_TEMPLATES")
 	assertEquals \
-		"[1] C with formatting and test
-[2] Clojure with formatting, linting and test" \
+		"$(echo -e "${BWhite}[1]${Color_Off} ${Blue}c${Color_Off} - C with formatting and test
+${BWhite}[2]${Color_Off} ${Blue}clojure${Color_Off} - Clojure with formatting, linting and test")" \
 		"$actual"
 }
 
