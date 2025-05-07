@@ -63,7 +63,7 @@ test_usage() {
 	actual=$(parse_args --help 2>&1)
 
 	assertEquals \
-		"usage;$(show_help)" \
+		"usage" \
 		"$actual"
 }
 

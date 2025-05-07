@@ -17,7 +17,7 @@ parse_args() {
 			shift
 			;;
 		-h | --help)
-			echo "usage;$(show_help)"
+			echo "usage"
 			exit
 			;;
 		esac
@@ -40,33 +40,37 @@ validate_kata() {
 	fi
 }
 
-show_help() {
-	echo "bootstrap-kata 
-	A command line tool to make it fast and easy to bootstrap your next kata.
-	It uses the beautifully crafted sandboxes at https://gitlab.com/pinage404/nix-sandboxes.
-	They come equiped with all the tools and examples you need to start coding right away without any hustle
-	It will create a folder with the name of the template, the kata name and the date. 
-	It will then init a git repository and make a first commit.
+BWhite='\033[1;37m' # White Bold
+Blue='\033[0;34m'   # Blue
+Yellow='\033[0;33m' # Yellow
+Green='\033[0;32m'  # Green
+Color_Off='\033[0m' # Text Reset
 
-Usage: bootstrap-kata [options]
-	options:
-		-k, --kata=\"the kata name\"     the name of the kata (can only contain letters)
-		-t, --template=template          the name of the nix-sandboxes template you are choosing
-		-h, --help                       to prompt this message
+show_help() {
+	echo -e "A command line tool to make it fast and easy to bootstrap your next kata.
+It uses the beautifully crafted sandboxes at https://gitlab.com/pinage404/nix-sandboxes.
+They come equiped with all the tools and examples you need to start coding right away without any hustle
+It will create a folder with the name of the template, the kata name and the date. 
+It will then init a git repository and make a first commit.
+
+------------------------------
+${BWhite}Usage: bootstrap-kata [options]${Color_Off}
+
+Options:
+${Green}-k=, --kata=\"the kata name\"${Color_Off}     the name of the kata (can only contain letters)
+${Green}-t=, --template=template${Color_Off}          the name of the nix-sandboxes template you are choosing
+${Green}-h, --help${Color_Off}                      to prompt this message
 
 Examples:
-	bootstrap-kata # will list the available templates and ask you to choose
-	bootstrap-kata --template=clojure # selects the clojure template and ask for the kata name
-	bootstrap-kata --template=clojure --kata=\"mars rover\""
+${Green}bootstrap-kata ${Yellow}# will list the available templates and ask you to choose${Color_Off}
+${Green}bootstrap-kata --template=clojure ${Yellow}# selects the clojure template and ask for the kata name${Color_Off}
+${Green}bootstrap-kata --template=clojure --kata=\"mars rover\""${Color_Off}
 }
 
 parse_templates() {
 	echo "$1" | jq --raw-output ".templates | to_entries[] | \"\(.key);\(.value.description)\""
 }
 
-BWhite='\033[1;37m' # White Bold
-Blue='\033[0;34m'   # Blue
-Color_Off='\033[0m' # Text Reset
 print_templates() {
 	local number=1
 	echo "$1" | while read -r line; do

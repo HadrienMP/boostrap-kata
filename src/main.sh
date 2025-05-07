@@ -8,16 +8,17 @@ if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
 
 echo "
 
-░▒█▀▀▄░▄▀▀▄░▄▀▀▄░█▀▀░▀█▀░█▀▀▄░█▀▀▄░▄▀▀▄░░░▒█░▄▀░█▀▀▄░▀█▀░█▀▀▄
-░▒█▀▀▄░█░░█░█░░█░▀▀▄░░█░░█▄▄▀░█▄▄█░█▄▄█░░░▒█▀▄░░█▄▄█░░█░░█▄▄█
-░▒█▄▄█░░▀▀░░░▀▀░░▀▀▀░░▀░░▀░▀▀░▀░░▀░█░░░░░░▒█░▒█░▀░░▀░░▀░░▀░░▀ 
+░▒█▀▀▄░▄▀▀▄░▄▀▀▄░▀█▀░█▀▀░▀█▀░█▀▀▄░█▀▀▄░▄▀▀▄░░░▒█░▄▀░█▀▀▄░▀█▀░█▀▀▄
+░▒█▀▀▄░█░░█░█░░█░░█░░▀▀▄░░█░░█▄▄▀░█▄▄█░█▄▄█░░░▒█▀▄░░█▄▄█░░█░░█▄▄█
+░▒█▄▄█░░▀▀░░░▀▀░░░▀░░▀▀▀░░▀░░▀░▀▀░▀░░▀░█░░░░░░▒█░▒█░▀░░▀░░▀░░▀░░▀
 
 "
 
 parse_result=$(parse_args "$@")
 template=""
 kata=""
-case "$$(echo "$parse_result" | get 1)" in
+parse_success=$(echo "$parse_result" | get 1 | head -n 1)
+case "$parse_success" in
 success)
 	template=$(echo "$parse_result" | get 2)
 	kata=$(echo "$parse_result" | get 3)
@@ -28,7 +29,7 @@ failure)
 	exit 1
 	;;
 usage)
-	echo "$parse_result" | get 2
+	show_help
 	exit
 	;;
 esac
