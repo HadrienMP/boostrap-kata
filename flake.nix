@@ -28,8 +28,13 @@
       in
       {
         devShells.default = pkgs.mkShellNoCC {
-          packages = [
-            pkgs.devbox
+          packages = with pkgs; [
+            jq
+            mask
+            shellcheck
+            shfmt
+            shunit2
+            watchexec
           ];
         };
         packages.bootstrap-kata = 
@@ -37,7 +42,14 @@
             name = "bootstrap-kata";
             src = self;
             dontBuild = true;
-            installPhase = "mkdir -p $out/bin; mv ./bootstrap-kata.sh $out/bin/bootstrap-kata";
+            installPhase = ''
+              mkdir -p $out/bin; mv ./src/* $out/bin/
+              mv $out/bin/main.sh $out/bin/bootstrap-kata
+            '';
+            buildInputs= with pkgs; [
+              bashInteractive
+              jq
+            ];
           };
         defaultPackage = self.packages.${system}.bootstrap-kata;
         

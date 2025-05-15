@@ -1,5 +1,15 @@
 # Commands
 
+## Make
+
+```shell
+nix build
+```
+
+```
+
+```
+
 ## test
 
 ```sh
@@ -42,7 +52,6 @@ shellcheck -x ./**/**.{sh,bash,ksh,bashrc,bash_profile,bash_login,bash_logout}
 ```sh
 watchexec -d 1 --clear -- $MASK lint
 ```
-
 
 ## format
 
