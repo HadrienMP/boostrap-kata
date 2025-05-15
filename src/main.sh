@@ -3,7 +3,7 @@
 DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
 . "$DIR"/pure.sh
-. "$DIR"/style.sh
+# . "$DIR"/style.sh
 . "$DIR"/loader.sh
 
 echo "
@@ -38,7 +38,7 @@ esac
 # Get the template
 # -----------------------------
 if [ -z "$template" ]; then
-	shloader -l emoji_hour -m "Getting the list of sandboxes" -e "✅"
+	shloader "Getting the list of sandboxes"
 	nix_flake_show=$(nix flake show gitlab:pinage404/nix-sandboxes --json 2>/dev/null)
 	end_shloader
 	echo ""

@@ -64,7 +64,7 @@ ${Green}-h, --help${Color_Off}                      to prompt this message
 Examples:
 ${Green}bootstrap-kata ${Yellow}# will list the available templates and ask you to choose${Color_Off}
 ${Green}bootstrap-kata --template=clojure ${Yellow}# selects the clojure template and ask for the kata name${Color_Off}
-${Green}bootstrap-kata --template=clojure --kata=\"mars rover\""${Color_Off}
+${Green}bootstrap-kata --template=clojure --kata=\"mars rover\"${Color_Off}"
 }
 
 parse_templates() {
@@ -105,6 +105,9 @@ set +x
 
 }
 
+# Gets a field from a chain split by ';'
+# the first field is numbered 1
+# call this by doing echo "toto;tata;titi" | get 2 # will return tata
 get() {
 	cut -d ';' -f "$1"
 }
